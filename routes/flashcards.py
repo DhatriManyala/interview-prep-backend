@@ -3,7 +3,7 @@ from flask_jwt_extended import jwt_required
 from models import Flashcard
 from flask import Blueprint
 
-flashcards_bp = Blueprint('flashcards', _name_)
+flashcards_bp = Blueprint('flashcards', __name__)
 
 @flashcards_bp.route('/all', methods=['GET'])
 @jwt_required()

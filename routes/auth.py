@@ -6,7 +6,7 @@ from flask import Blueprint
 import jwt as pyjwt
 from datetime import datetime, timedelta
 
-auth_bp = Blueprint('auth', _name_)
+auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/register', methods=['POST'])
 def register():

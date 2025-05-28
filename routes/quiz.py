@@ -3,7 +3,7 @@ from flask_jwt_extended import jwt_required
 from models import QuizQuestion
 from flask import Blueprint
 
-quiz_bp = Blueprint('quiz', _name_)
+quiz_bp = Blueprint('quiz', __name__)
 
 @quiz_bp.route('/questions', methods=['GET'])
 @jwt_required()

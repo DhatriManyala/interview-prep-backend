@@ -3,7 +3,7 @@ from flask_jwt_extended import jwt_required
 from models import MockInterviewQuestion
 from flask import Blueprint
 
-mock_interview_bp = Blueprint('mock_interview', _name_)
+mock_interview_bp = Blueprint('mock_interview', __name__)
 
 @mock_interview_bp.route('/questions', methods=['GET'])
 @jwt_required()
