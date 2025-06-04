@@ -1,10 +1,7 @@
-from flask import request, jsonify, current_app
-from extensions import db, bcrypt, jwt
+from flask import request, jsonify, Blueprint
+from extensions import db, bcrypt
 from models import User
 from flask_jwt_extended import create_access_token
-from flask import Blueprint
-import jwt as pyjwt
-from datetime import datetime, timedelta
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -14,6 +11,9 @@ def register():
     username = data.get('username')
     email = data.get('email')
     password = data.get('password')
+
+    if not username or not email or not password:
+        return jsonify({"msg": "Username, email, and password are required"}), 400
 
     if User.query.filter_by(email=email).first():
         return jsonify({"msg": "Email already registered"}), 400
@@ -32,8 +32,12 @@ def login():
     email = data.get('email')
     password = data.get('password')
 
+    if not email or not password:
+        return jsonify({"msg": "Email and password are required"}), 400
+
     user = User.query.filter_by(email=email).first()
     if user and bcrypt.check_password_hash(user.password_hash, password):
         access_token = create_access_token(identity=user.id)
         return jsonify(access_token=access_token), 200
+
     return jsonify({"msg": "Bad email or password"}), 401
